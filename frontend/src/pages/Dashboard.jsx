@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import Navbar from '../components/Navbar';
-import UptimeBadge from '../components/UptimeBadge';
 import SSLBadge from '../components/SSLBadge';
 import AddEndpointModal from '../components/AddEndpointModal';
 
 export default function Dashboard() {
   const [endpoints, setEndpoints] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState(null);
   const navigate = useNavigate();
 
   const fetchEndpoints = async () => {
@@ -24,35 +24,89 @@ export default function Dashboard() {
     setEndpoints(endpoints.filter(e => e.id !== id));
   };
 
+  const getStatusDot = (ep) => {
+    const isHttps = ep.url?.startsWith('https');
+    return isHttps ? '#10b981' : '#f59e0b';
+  };
+
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f7fa' }}>
+    <div style={{ minHeight: '100vh', background: '#06060f' }}>
       <Navbar />
       <div style={styles.container}>
-        <div style={styles.header}>
-          <h1 style={styles.title}>Your Endpoints</h1>
-          <button style={styles.addBtn} onClick={() => setShowModal(true)}>+ Add Endpoint</button>
+        {/* Header */}
+        <div style={styles.header} className="animate-in">
+          <div>
+            <h1 style={styles.title}>Your Endpoints</h1>
+            <p style={styles.subtitle}>Monitor and manage your API health checks</p>
+          </div>
+          <button
+            style={styles.addBtn}
+            onClick={() => setShowModal(true)}
+          >
+            <span style={styles.addIcon}>+</span>
+            Add Endpoint
+          </button>
         </div>
 
         {endpoints.length === 0 ? (
-          <div style={styles.empty}>
-            <p>No endpoints yet. Add your first API to monitor.</p>
+          <div style={styles.empty} className="animate-in animate-in-delay-1">
+            <div style={styles.emptyIcon}>📡</div>
+            <h3 style={styles.emptyTitle}>No endpoints yet</h3>
+            <p style={styles.emptyText}>Add your first API endpoint to start monitoring its health and uptime.</p>
+            <button style={styles.emptyBtn} onClick={() => setShowModal(true)}>
+              <span style={styles.addIcon}>+</span> Add Your First Endpoint
+            </button>
           </div>
         ) : (
           <div style={styles.grid}>
-            {endpoints.map(ep => (
-              <div key={ep.id} style={styles.card}>
-                <div style={styles.cardTop}>
-                  <div>
-                    <h3 style={styles.epName}>{ep.name || ep.url}</h3>
-                    <p style={styles.epUrl}>{ep.url}</p>
+            {endpoints.map((ep, i) => (
+              <div
+                key={ep.id}
+                className={`animate-in animate-in-delay-${Math.min(i + 1, 4)}`}
+                style={{
+                  ...styles.card,
+                  ...(hoveredCard === ep.id ? styles.cardHover : {}),
+                  animationDelay: `${0.1 * (i + 1)}s`,
+                }}
+                onMouseEnter={() => setHoveredCard(ep.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                {/* Status indicator line */}
+                <div style={{
+                  ...styles.cardLine,
+                  background: `linear-gradient(90deg, ${getStatusDot(ep)}, transparent)`,
+                }} />
+
+                <div style={styles.cardContent}>
+                  <div style={styles.cardTop}>
+                    <div style={{ flex: 1 }}>
+                      <h3 style={styles.epName}>{ep.name || ep.url}</h3>
+                      <p style={styles.epUrl}>{ep.url}</p>
+                    </div>
+                    <SSLBadge url={ep.url} />
                   </div>
-                  <SSLBadge url={ep.url} />
-                </div>
-                <div style={styles.cardBottom}>
-                  <span style={styles.interval}>⏱ every {ep.checkIntervalSeconds}s</span>
-                  <div style={styles.actions}>
-                    <button style={styles.detailBtn} onClick={() => navigate(`/endpoints/${ep.id}`)}>Details</button>
-                    <button style={styles.deleteBtn} onClick={() => deleteEndpoint(ep.id)}>Delete</button>
+
+                  <div style={styles.cardMeta}>
+                    <div style={styles.metaItem}>
+                      <span style={styles.metaIcon}>⏱</span>
+                      <span style={styles.metaText}>every {ep.checkIntervalSeconds}s</span>
+                    </div>
+                  </div>
+
+                  <div style={styles.cardBottom}>
+                    <button
+                      style={styles.detailBtn}
+                      onClick={() => navigate(`/endpoints/${ep.id}`)}
+                    >
+                      View Details
+                      <span style={styles.arrowIcon}>→</span>
+                    </button>
+                    <button
+                      style={styles.deleteBtn}
+                      onClick={() => deleteEndpoint(ep.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>
@@ -72,19 +126,180 @@ export default function Dashboard() {
 }
 
 const styles = {
-  container: { maxWidth: '960px', margin: '0 auto', padding: '2rem 1.5rem' },
-  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' },
-  title: { fontSize: '1.5rem', fontWeight: 700 },
-  addBtn: { padding: '0.65rem 1.25rem', background: '#4f46e5', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 600, fontSize: '0.95rem' },
-  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.25rem' },
-  card: { background: '#fff', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' },
-  cardTop: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' },
-  epName: { fontSize: '1rem', fontWeight: 600, marginBottom: '0.25rem' },
-  epUrl: { fontSize: '0.8rem', color: '#6b7280', wordBreak: 'break-all' },
-  cardBottom: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
-  interval: { fontSize: '0.8rem', color: '#9ca3af' },
-  actions: { display: 'flex', gap: '0.5rem' },
-  detailBtn: { padding: '0.4rem 0.8rem', background: '#ede9fe', color: '#4f46e5', border: 'none', borderRadius: '6px', fontWeight: 600, fontSize: '0.8rem' },
-  deleteBtn: { padding: '0.4rem 0.8rem', background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '6px', fontWeight: 600, fontSize: '0.8rem' },
-  empty: { textAlign: 'center', padding: '4rem', background: '#fff', borderRadius: '12px', color: '#9ca3af', fontSize: '1rem' },
+  container: {
+    maxWidth: '1000px',
+    margin: '0 auto',
+    padding: '2rem 1.5rem 3rem',
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '2rem',
+  },
+  title: {
+    fontSize: '1.75rem',
+    fontWeight: 800,
+    letterSpacing: '-0.02em',
+    background: 'linear-gradient(135deg, #f1f1f7, #8b8ba3)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  },
+  subtitle: {
+    color: '#5b5b73',
+    fontSize: '0.9rem',
+    marginTop: '0.35rem',
+  },
+  addBtn: {
+    padding: '0.7rem 1.25rem',
+    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '12px',
+    fontWeight: 700,
+    fontSize: '0.9rem',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.4rem',
+    boxShadow: '0 4px 20px rgba(99,102,241,0.25)',
+    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+  },
+  addIcon: {
+    fontSize: '1.1rem',
+    fontWeight: 300,
+  },
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gap: '1.25rem',
+  },
+  card: {
+    background: 'rgba(15, 15, 35, 0.6)',
+    border: '1px solid rgba(255,255,255,0.06)',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+    backdropFilter: 'blur(10px)',
+    WebkitBackdropFilter: 'blur(10px)',
+  },
+  cardHover: {
+    border: '1px solid rgba(99,102,241,0.2)',
+    boxShadow: '0 8px 40px rgba(0,0,0,0.3), 0 0 30px rgba(99,102,241,0.08)',
+    transform: 'translateY(-2px)',
+  },
+  cardLine: {
+    height: '2px',
+    opacity: 0.6,
+  },
+  cardContent: {
+    padding: '1.25rem 1.5rem',
+  },
+  cardTop: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '0.75rem',
+  },
+  epName: {
+    fontSize: '1.05rem',
+    fontWeight: 700,
+    color: '#f1f1f7',
+    marginBottom: '0.3rem',
+  },
+  epUrl: {
+    fontSize: '0.78rem',
+    color: '#5b5b73',
+    wordBreak: 'break-all',
+    fontFamily: "'SF Mono', 'Fira Code', monospace",
+  },
+  cardMeta: {
+    display: 'flex',
+    gap: '1rem',
+    marginBottom: '1rem',
+    paddingTop: '0.75rem',
+    borderTop: '1px solid rgba(255,255,255,0.04)',
+  },
+  metaItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.35rem',
+  },
+  metaIcon: {
+    fontSize: '0.75rem',
+  },
+  metaText: {
+    color: '#5b5b73',
+    fontSize: '0.78rem',
+  },
+  cardBottom: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '0.5rem',
+  },
+  detailBtn: {
+    padding: '0.5rem 1rem',
+    background: 'rgba(99, 102, 241, 0.1)',
+    border: '1px solid rgba(99, 102, 241, 0.15)',
+    color: '#a78bfa',
+    borderRadius: '10px',
+    fontWeight: 600,
+    fontSize: '0.82rem',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.4rem',
+    transition: 'all 0.25s',
+  },
+  arrowIcon: {
+    transition: 'transform 0.25s',
+    display: 'inline-block',
+  },
+  deleteBtn: {
+    padding: '0.5rem 0.9rem',
+    background: 'rgba(239, 68, 68, 0.08)',
+    border: '1px solid rgba(239, 68, 68, 0.12)',
+    color: '#f87171',
+    borderRadius: '10px',
+    fontWeight: 600,
+    fontSize: '0.82rem',
+    transition: 'all 0.25s',
+  },
+  empty: {
+    textAlign: 'center',
+    padding: '4rem 2rem',
+    background: 'rgba(15, 15, 35, 0.5)',
+    border: '1px dashed rgba(255,255,255,0.08)',
+    borderRadius: '20px',
+  },
+  emptyIcon: {
+    fontSize: '3rem',
+    marginBottom: '1rem',
+    animation: 'bounce-subtle 3s ease-in-out infinite',
+  },
+  emptyTitle: {
+    fontSize: '1.25rem',
+    fontWeight: 700,
+    color: '#f1f1f7',
+    marginBottom: '0.5rem',
+  },
+  emptyText: {
+    color: '#5b5b73',
+    fontSize: '0.9rem',
+    maxWidth: '320px',
+    margin: '0 auto 1.5rem',
+    lineHeight: 1.6,
+  },
+  emptyBtn: {
+    padding: '0.75rem 1.5rem',
+    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '12px',
+    fontWeight: 700,
+    fontSize: '0.9rem',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.4rem',
+    boxShadow: '0 4px 20px rgba(99,102,241,0.3)',
+  },
 };
