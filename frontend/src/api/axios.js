@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+// When deployed on Vercel, it uses the environment variable. 
+// When running locally, it defaults to localhost:8080.
 const api = axios.create({
-  baseURL: '',
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8080',
 });
 
 api.interceptors.request.use((config) => {
