@@ -1,38 +1,38 @@
 /* ==============================
    AvailAPI — Design System
-   Dark theme with glassmorphism
+   Purple-to-Pink Gradient Theme
    ============================== */
 
 :root {
   /* Core palette */
-  --bg-primary: #06060f;
-  --bg-secondary: #0d0d1f;
-  --bg-card: rgba(15, 15, 35, 0.7);
-  --bg-card-hover: rgba(20, 20, 45, 0.85);
-  --bg-glass: rgba(255, 255, 255, 0.03);
-  --bg-glass-strong: rgba(255, 255, 255, 0.06);
+  --bg-primary: #1a0a2e;
+  --bg-secondary: #230f3e;
+  --bg-card: rgba(30, 15, 55, 0.65);
+  --bg-card-hover: rgba(40, 20, 70, 0.8);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+  --bg-glass-strong: rgba(255, 255, 255, 0.08);
 
   /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-light: rgba(255, 255, 255, 0.1);
-  --border-glow: rgba(99, 102, 241, 0.3);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.12);
+  --border-glow: rgba(232, 68, 109, 0.3);
 
   /* Text */
-  --text-primary: #f1f1f7;
-  --text-secondary: #8b8ba3;
-  --text-muted: #5b5b73;
-  --text-accent: #a78bfa;
+  --text-primary: #ffffff;
+  --text-secondary: #c4b5d4;
+  --text-muted: #8a7a9e;
+  --text-accent: #ff6b8a;
 
   /* Accent gradient */
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+  --gradient-primary: linear-gradient(135deg, #e8446d 0%, #ff6b8a 50%, #ff8fa3 100%);
   --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
   --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-  --gradient-bg: radial-gradient(ellipse at 20% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-                 radial-gradient(ellipse at 80% 100%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+  --gradient-bg: linear-gradient(135deg, #1a0a2e 0%, #2d1452 25%, #4a1a5e 50%, #6b2a6e 75%, #8b4a7a 100%);
 
   /* Accent solids */
-  --accent-indigo: #6366f1;
+  --accent-pink: #e8446d;
+  --accent-coral: #ff6b8a;
   --accent-violet: #8b5cf6;
   --accent-green: #10b981;
   --accent-red: #ef4444;
@@ -42,7 +42,7 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.15);
+  --shadow-glow: 0 0 30px rgba(232, 68, 109, 0.15);
 
   /* Radius */
   --radius-sm: 8px;
@@ -77,8 +77,8 @@ button { cursor: pointer; font-family: inherit; }
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
 
 /* ====== Animations ====== */
 
@@ -129,8 +129,8 @@ button { cursor: pointer; font-family: inherit; }
 }
 
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.1); }
-  50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.25); }
+  0%, 100% { box-shadow: 0 0 20px rgba(232, 68, 109, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(232, 68, 109, 0.25); }
 }
 
 @keyframes spin {

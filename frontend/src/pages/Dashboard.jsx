@@ -30,7 +30,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#06060f' }}>
+    <div style={{ minHeight: '100vh' }}>
       <Navbar />
       <div style={styles.container}>
         {/* Header */}
@@ -141,18 +141,16 @@ const styles = {
     fontSize: '1.75rem',
     fontWeight: 800,
     letterSpacing: '-0.02em',
-    background: 'linear-gradient(135deg, #f1f1f7, #8b8ba3)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    color: '#ffffff',
   },
   subtitle: {
-    color: '#5b5b73',
+    color: '#c4b5d4',
     fontSize: '0.9rem',
     marginTop: '0.35rem',
   },
   addBtn: {
     padding: '0.7rem 1.25rem',
-    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
     color: '#fff',
     border: 'none',
     borderRadius: '12px',
@@ -161,7 +159,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '0.4rem',
-    boxShadow: '0 4px 20px rgba(99,102,241,0.25)',
+    boxShadow: '0 4px 20px rgba(232,68,109,0.25)',
     transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
   },
   addIcon: {
@@ -174,8 +172,8 @@ const styles = {
     gap: '1.25rem',
   },
   card: {
-    background: 'rgba(15, 15, 35, 0.6)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(30, 15, 55, 0.55)',
+    border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: '16px',
     overflow: 'hidden',
     transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -183,8 +181,8 @@ const styles = {
     WebkitBackdropFilter: 'blur(10px)',
   },
   cardHover: {
-    border: '1px solid rgba(99,102,241,0.2)',
-    boxShadow: '0 8px 40px rgba(0,0,0,0.3), 0 0 30px rgba(99,102,241,0.08)',
+    border: '1px solid rgba(232,68,109,0.25)',
+    boxShadow: '0 8px 40px rgba(0,0,0,0.3), 0 0 30px rgba(232,68,109,0.08)',
     transform: 'translateY(-2px)',
   },
   cardLine: {
@@ -203,12 +201,12 @@ const styles = {
   epName: {
     fontSize: '1.05rem',
     fontWeight: 700,
-    color: '#f1f1f7',
+    color: '#ffffff',
     marginBottom: '0.3rem',
   },
   epUrl: {
     fontSize: '0.78rem',
-    color: '#5b5b73',
+    color: '#8a7a9e',
     wordBreak: 'break-all',
     fontFamily: "'SF Mono', 'Fira Code', monospace",
   },
@@ -217,7 +215,7 @@ const styles = {
     gap: '1rem',
     marginBottom: '1rem',
     paddingTop: '0.75rem',
-    borderTop: '1px solid rgba(255,255,255,0.04)',
+    borderTop: '1px solid rgba(255,255,255,0.06)',
   },
   metaItem: {
     display: 'flex',
@@ -228,7 +226,7 @@ const styles = {
     fontSize: '0.75rem',
   },
   metaText: {
-    color: '#5b5b73',
+    color: '#8a7a9e',
     fontSize: '0.78rem',
   },
   cardBottom: {
@@ -239,9 +237,9 @@ const styles = {
   },
   detailBtn: {
     padding: '0.5rem 1rem',
-    background: 'rgba(99, 102, 241, 0.1)',
-    border: '1px solid rgba(99, 102, 241, 0.15)',
-    color: '#a78bfa',
+    background: 'rgba(232, 68, 109, 0.1)',
+    border: '1px solid rgba(232, 68, 109, 0.2)',
+    color: '#ff6b8a',
     borderRadius: '10px',
     fontWeight: 600,
     fontSize: '0.82rem',
@@ -267,8 +265,8 @@ const styles = {
   empty: {
     textAlign: 'center',
     padding: '4rem 2rem',
-    background: 'rgba(15, 15, 35, 0.5)',
-    border: '1px dashed rgba(255,255,255,0.08)',
+    background: 'rgba(30, 15, 55, 0.45)',
+    border: '1px dashed rgba(255,255,255,0.1)',
     borderRadius: '20px',
   },
   emptyIcon: {
@@ -279,11 +277,11 @@ const styles = {
   emptyTitle: {
     fontSize: '1.25rem',
     fontWeight: 700,
-    color: '#f1f1f7',
+    color: '#ffffff',
     marginBottom: '0.5rem',
   },
   emptyText: {
-    color: '#5b5b73',
+    color: '#8a7a9e',
     fontSize: '0.9rem',
     maxWidth: '320px',
     margin: '0 auto 1.5rem',
@@ -291,7 +289,7 @@ const styles = {
   },
   emptyBtn: {
     padding: '0.75rem 1.5rem',
-    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
     color: '#fff',
     border: 'none',
     borderRadius: '12px',
@@ -300,6 +298,6 @@ const styles = {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '0.4rem',
-    boxShadow: '0 4px 20px rgba(99,102,241,0.3)',
+    boxShadow: '0 4px 20px rgba(232,68,109,0.3)',
   },
 };

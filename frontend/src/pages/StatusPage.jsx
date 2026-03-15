@@ -19,8 +19,8 @@ export default function StatusPage() {
     <div style={styles.center}>
       <div style={styles.errorCard} className="animate-in">
         <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
-        <h2 style={{ color: '#f1f1f7', marginBottom: '0.5rem' }}>{error}</h2>
-        <p style={{ color: '#5b5b73' }}>The status page you're looking for doesn't exist.</p>
+        <h2 style={{ color: '#ffffff', marginBottom: '0.5rem' }}>{error}</h2>
+        <p style={{ color: '#8a7a9e' }}>The status page you're looking for doesn't exist.</p>
       </div>
     </div>
   );
@@ -124,7 +124,6 @@ export default function StatusPage() {
 const styles = {
   page: {
     minHeight: '100vh',
-    background: '#06060f',
   },
   container: {
     maxWidth: '760px',
@@ -142,16 +141,16 @@ const styles = {
   },
   logoIcon: {
     fontSize: '1.5rem',
-    background: 'linear-gradient(135deg, #6366f1, #a78bfa)',
+    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
-    filter: 'drop-shadow(0 0 10px rgba(99,102,241,0.4))',
+    filter: 'drop-shadow(0 0 10px rgba(232,68,109,0.4))',
   },
   logoText: {
     fontSize: '2rem',
     fontWeight: 800,
     letterSpacing: '-0.02em',
-    color: '#f1f1f7',
+    color: '#ffffff',
   },
   overallBadge: {
     display: 'inline-flex',
@@ -164,8 +163,8 @@ const styles = {
     border: '1px solid',
   },
   section: {
-    background: 'rgba(15, 15, 35, 0.6)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(30, 15, 55, 0.55)',
+    border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: '16px',
     padding: '1.5rem',
     marginBottom: '1.5rem',
@@ -175,7 +174,7 @@ const styles = {
   sectionTitle: {
     fontSize: '0.85rem',
     fontWeight: 700,
-    color: '#8b8ba3',
+    color: '#c4b5d4',
     marginBottom: '1rem',
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
@@ -184,7 +183,7 @@ const styles = {
     gap: '0.5rem',
   },
   sectionIcon: {
-    background: 'linear-gradient(135deg, #6366f1, #a78bfa)',
+    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
   },
@@ -193,7 +192,7 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '1rem 0',
-    borderTop: '1px solid rgba(255,255,255,0.04)',
+    borderTop: '1px solid rgba(255,255,255,0.06)',
   },
   rowLeft: {
     display: 'flex',
@@ -207,7 +206,7 @@ const styles = {
   },
   epName: {
     fontWeight: 600,
-    color: '#f1f1f7',
+    color: '#ffffff',
     fontSize: '0.95rem',
   },
   metricPill: {
@@ -215,22 +214,22 @@ const styles = {
     alignItems: 'baseline',
     gap: '0.25rem',
     padding: '0.25rem 0.6rem',
-    background: 'rgba(255,255,255,0.03)',
+    background: 'rgba(255,255,255,0.05)',
     borderRadius: '6px',
   },
   metricVal: {
     fontSize: '0.82rem',
     fontWeight: 600,
-    color: '#8b8ba3',
+    color: '#c4b5d4',
   },
   metricLabel: {
     fontSize: '0.65rem',
-    color: '#5b5b73',
+    color: '#8a7a9e',
   },
   incident: {
     padding: '0.85rem 1rem',
-    background: 'rgba(239, 68, 68, 0.08)',
-    border: '1px solid rgba(239, 68, 68, 0.12)',
+    background: 'rgba(239, 68, 68, 0.1)',
+    border: '1px solid rgba(239, 68, 68, 0.15)',
     borderRadius: '10px',
     color: '#f87171',
     fontSize: '0.9rem',
@@ -248,7 +247,7 @@ const styles = {
     flexShrink: 0,
   },
   footer: {
-    color: '#5b5b73',
+    color: '#8a7a9e',
     fontSize: '0.78rem',
     textAlign: 'center',
     marginTop: '1rem',
@@ -258,7 +257,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '100vh',
-    background: '#06060f',
+    background: 'linear-gradient(135deg, #1a0a2e 0%, #2d1452 30%, #4a1a5e 60%, #6b2a6e 100%)',
   },
   errorCard: {
     textAlign: 'center',
@@ -271,8 +270,8 @@ const styles = {
   spinnerLg: {
     width: '40px',
     height: '40px',
-    border: '3px solid rgba(99,102,241,0.15)',
-    borderTopColor: '#6366f1',
+    border: '3px solid rgba(232,68,109,0.15)',
+    borderTopColor: '#e8446d',
     borderRadius: '50%',
     display: 'inline-block',
     animation: 'spin 0.8s linear infinite',

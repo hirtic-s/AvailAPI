@@ -18,10 +18,10 @@ export default function Navbar() {
   return (
     <nav style={{
       ...styles.nav,
-      background: scrolled ? 'rgba(6, 6, 15, 0.85)' : 'rgba(6, 6, 15, 0.4)',
+      background: scrolled ? 'rgba(26, 10, 46, 0.85)' : 'rgba(26, 10, 46, 0.3)',
       backdropFilter: 'blur(20px) saturate(180%)',
       WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-      borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+      borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent',
       boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none',
     }}>
       <Link to="/dashboard" style={styles.brand}>
@@ -68,18 +68,16 @@ const styles = {
   },
   logoIcon: {
     fontSize: '1.1rem',
-    background: 'linear-gradient(135deg, #6366f1, #a78bfa)',
+    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
-    filter: 'drop-shadow(0 0 8px rgba(99,102,241,0.4))',
+    filter: 'drop-shadow(0 0 8px rgba(232,68,109,0.4))',
   },
   logoText: {
     fontSize: '1.2rem',
     fontWeight: 800,
     letterSpacing: '-0.02em',
-    background: 'linear-gradient(135deg, #f1f1f7 0%, #a78bfa 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    color: '#ffffff',
   },
   right: {
     display: 'flex',
@@ -87,7 +85,7 @@ const styles = {
     gap: '1rem',
   },
   link: {
-    color: '#8b8ba3',
+    color: 'rgba(255,255,255,0.7)',
     fontSize: '0.85rem',
     fontWeight: 500,
     display: 'flex',
@@ -104,7 +102,7 @@ const styles = {
   divider: {
     width: '1px',
     height: '20px',
-    background: 'rgba(255,255,255,0.08)',
+    background: 'rgba(255,255,255,0.12)',
   },
   userChip: {
     display: 'flex',
@@ -112,14 +110,14 @@ const styles = {
     gap: '0.5rem',
     padding: '0.3rem 0.75rem 0.3rem 0.3rem',
     borderRadius: '999px',
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.08)',
   },
   avatar: {
     width: '26px',
     height: '26px',
     borderRadius: '50%',
-    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -128,18 +126,19 @@ const styles = {
     color: '#fff',
   },
   email: {
-    color: '#8b8ba3',
+    color: 'rgba(255,255,255,0.65)',
     fontSize: '0.82rem',
     fontWeight: 500,
   },
   btn: {
-    padding: '0.45rem 1rem',
-    background: 'rgba(239, 68, 68, 0.1)',
-    color: '#f87171',
-    border: '1px solid rgba(239, 68, 68, 0.15)',
-    borderRadius: '8px',
+    padding: '0.45rem 1.1rem',
+    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '999px',
     fontWeight: 600,
     fontSize: '0.82rem',
     transition: 'all 0.25s ease',
+    boxShadow: '0 2px 12px rgba(232,68,109,0.25)',
   },
 };

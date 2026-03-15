@@ -39,9 +39,9 @@ export default function EndpointDetail() {
     {
       label: 'Avg Latency',
       value: `${avgLatency}ms`,
-      color: '#6366f1',
+      color: '#e8446d',
       icon: '⚡',
-      glow: 'rgba(99, 102, 241, 0.15)',
+      glow: 'rgba(232, 68, 109, 0.15)',
     },
     {
       label: 'Checks (24h)',
@@ -53,7 +53,7 @@ export default function EndpointDetail() {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#06060f' }}>
+    <div style={{ minHeight: '100vh' }}>
       <Navbar />
       <div style={styles.container}>
         <button
@@ -167,7 +167,7 @@ const styles = {
   back: {
     background: 'none',
     border: 'none',
-    color: '#8b8ba3',
+    color: '#c4b5d4',
     fontWeight: 500,
     fontSize: '0.9rem',
     marginBottom: '1.5rem',
@@ -184,8 +184,8 @@ const styles = {
     width: '28px',
     height: '28px',
     borderRadius: '8px',
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.08)',
     fontSize: '0.85rem',
     transition: 'all 0.2s',
   },
@@ -199,11 +199,11 @@ const styles = {
     fontSize: '1.75rem',
     fontWeight: 800,
     letterSpacing: '-0.02em',
-    color: '#f1f1f7',
+    color: '#ffffff',
     marginBottom: '0.35rem',
   },
   url: {
-    color: '#5b5b73',
+    color: '#8a7a9e',
     fontSize: '0.85rem',
     fontFamily: "'SF Mono', 'Fira Code', monospace",
   },
@@ -214,8 +214,8 @@ const styles = {
     marginBottom: '1.5rem',
   },
   statCard: {
-    background: 'rgba(15, 15, 35, 0.6)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(30, 15, 55, 0.55)',
+    border: '1px solid rgba(255,255,255,0.08)',
     padding: '1.5rem',
     borderRadius: '16px',
     textAlign: 'center',
@@ -243,7 +243,7 @@ const styles = {
     lineHeight: 1.1,
   },
   statLabel: {
-    color: '#5b5b73',
+    color: '#8a7a9e',
     fontSize: '0.78rem',
     marginTop: '0.4rem',
     textTransform: 'uppercase',
@@ -251,8 +251,8 @@ const styles = {
     fontWeight: 500,
   },
   chartCard: {
-    background: 'rgba(15, 15, 35, 0.6)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(30, 15, 55, 0.55)',
+    border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: '16px',
     padding: '1.5rem',
     marginBottom: '1.5rem',
@@ -268,19 +268,19 @@ const styles = {
   sectionTitle: {
     fontSize: '1rem',
     fontWeight: 700,
-    color: '#f1f1f7',
+    color: '#ffffff',
   },
   timeRange: {
     fontSize: '0.78rem',
-    color: '#5b5b73',
+    color: '#8a7a9e',
     padding: '0.3rem 0.75rem',
-    background: 'rgba(255,255,255,0.03)',
+    background: 'rgba(255,255,255,0.05)',
     borderRadius: '999px',
-    border: '1px solid rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.08)',
   },
   historyCard: {
-    background: 'rgba(15, 15, 35, 0.6)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(30, 15, 55, 0.55)',
+    border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: '16px',
     padding: '1.5rem',
     backdropFilter: 'blur(10px)',
@@ -296,26 +296,26 @@ const styles = {
   th: {
     textAlign: 'left',
     padding: '0.75rem 1rem',
-    color: '#5b5b73',
+    color: '#8a7a9e',
     fontSize: '0.75rem',
     fontWeight: 600,
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
-    borderBottom: '1px solid rgba(255,255,255,0.04)',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
   },
   tr: {
-    borderBottom: '1px solid rgba(255,255,255,0.03)',
+    borderBottom: '1px solid rgba(255,255,255,0.04)',
     transition: 'background 0.2s',
   },
   td: {
     padding: '0.75rem 1rem',
     fontSize: '0.85rem',
-    color: '#8b8ba3',
+    color: '#c4b5d4',
   },
   tdLatency: {
     padding: '0.75rem 1rem',
     fontSize: '0.85rem',
-    color: '#8b8ba3',
+    color: '#c4b5d4',
     display: 'flex',
     alignItems: 'center',
     gap: '0.75rem',
@@ -324,14 +324,14 @@ const styles = {
     width: '60px',
     height: '4px',
     borderRadius: '2px',
-    background: 'rgba(255,255,255,0.06)',
+    background: 'rgba(255,255,255,0.08)',
     overflow: 'hidden',
     display: 'inline-block',
   },
   latencyFill: {
     height: '100%',
     borderRadius: '2px',
-    background: 'linear-gradient(90deg, #6366f1, #a78bfa)',
+    background: 'linear-gradient(90deg, #e8446d, #ff6b8a)',
     display: 'block',
     transition: 'width 0.5s ease',
   },
