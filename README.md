@@ -1,8 +1,8 @@
-# AvailAPI 🚀
+# AvailAPI
 
 AvailAPI is a comprehensive, multi-tenant SaaS platform designed to monitor API health, track latency, and validate SSL certificates in real-time. It provides developers with an intuitive React dashboard and customizable public status pages to transparently communicate system uptime.
 
-## ✨ Key Features
+## Key Features
 - **Real-Time Uptime Monitoring**: Automated Quartz scheduled jobs to track endpoint availability and latency.
 - **SSL Certificate Validation**: Proactive background checks for SSL expiration and certificate validity.
 - **Custom Status Pages**: Shareable public status pages (`/status/:slug`) for incident communication and transparency.
@@ -10,20 +10,8 @@ AvailAPI is a comprehensive, multi-tenant SaaS platform designed to monitor API 
 - **Secure Authentication**: JWT-based user registration, authentication, and security configurations.
 - **Interactive Analytics**: Visualized latency charts and dynamic uptime badges for quick health insights.
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Backend**: Java, Spring Boot, Spring Security (JWT), Quartz Scheduler
 - **Frontend**: React.js, React Router, Axios
 - **Database**: PostgreSQL (managed via Flyway SQL migrations)
 - **Infrastructure**: Docker, Docker Compose, Nginx Reverse Proxy
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Docker and Docker Compose installed on your local machine.
-
-### Installation & Deployment
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/hirtic-s-availapi.git
-   cd hirtic-s-availapi
