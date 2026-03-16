@@ -5,7 +5,7 @@ AvailAPI is a comprehensive, multi-tenant SaaS platform designed to monitor API 
 ## Key Features
 - **Real-Time Uptime Monitoring**: Automated Quartz scheduled jobs to track endpoint availability and latency.
 - **SSL Certificate Validation**: Proactive background checks for SSL expiration and certificate validity.
-- **Custom Status Pages**: Shareable public status pages (`/status/:slug`) for incident communication and transparency.
+- **Custom Status Pages**: Shareable public status pages for incident communication and transparency.
 - **Multi-Tenancy Support**: Built-in tenant architecture enabling isolated environments for different users or organizations.
 - **Secure Authentication**: JWT-based user registration, authentication, and security configurations.
 - **Interactive Analytics**: Visualized latency charts and dynamic uptime badges for quick health insights.
