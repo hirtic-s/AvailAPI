@@ -6,15 +6,15 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div style={{
-        background: '#1c2128',
+        background: 'var(--bg-default)',
         border: '1px solid #30363d',
         borderRadius: '6px',
         padding: '6px 10px',
         fontSize: '12px',
         boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
       }}>
-        <p style={{ color: '#8b949e', marginBottom: '2px' }}>{label}</p>
-        <p style={{ color: '#56d364', fontWeight: 600 }}>{payload[0].value}ms</p>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '2px' }}>{label}</p>
+        <p style={{ color: 'var(--status-up)', fontWeight: 600 }}>{payload[0].value}ms</p>
       </div>
     );
   }
@@ -39,14 +39,14 @@ export default function LatencyChart({ data }) {
         <CartesianGrid strokeDasharray="3 3" stroke="#21262d" vertical={false} />
         <XAxis
           dataKey="time"
-          tick={{ fontSize: 10, fill: '#6e7681' }}
+          tick={{ fontSize: 10, fill: 'var(--text-muted)' }}
           interval="preserveStartEnd"
-          axisLine={{ stroke: '#30363d' }}
+          axisLine={{ stroke: 'var(--border-default)' }}
           tickLine={false}
         />
         <YAxis
           unit="ms"
-          tick={{ fontSize: 10, fill: '#6e7681' }}
+          tick={{ fontSize: 10, fill: 'var(--text-muted)' }}
           axisLine={false}
           tickLine={false}
           width={48}
@@ -60,7 +60,7 @@ export default function LatencyChart({ data }) {
           fill="url(#latencyGradient)"
           dot={false}
           connectNulls={false}
-          activeDot={{ r: 4, fill: '#56d364', stroke: '#161b22', strokeWidth: 2 }}
+          activeDot={{ r: 4, fill: 'var(--status-up)', stroke: 'var(--bg-default)', strokeWidth: 2 }}
         />
       </AreaChart>
     </ResponsiveContainer>

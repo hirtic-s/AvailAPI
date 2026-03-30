@@ -82,9 +82,9 @@ export default function AddEndpointModal({ onClose, onAdded }) {
                     type="button"
                     style={{
                       ...s.intBtn,
-                      background: active ? '#238636' : '#21262d',
-                      borderColor: active ? 'rgba(240,246,252,0.1)' : '#30363d',
-                      color: active ? '#fff' : '#8b949e',
+                      background: active ? 'var(--accent-green)' : 'var(--bg-subtle)',
+                      borderColor: active ? 'var(--border-white-alpha)' : 'var(--border-default)',
+                      color: active ? 'var(--text-inv)' : 'var(--text-secondary)',
                     }}
                     onClick={() => setForm({ ...form, checkIntervalSeconds: value })}
                   >
@@ -115,7 +115,7 @@ const s = {
     zIndex: 200, padding: '16px',
   },
   modal: {
-    background: '#161b22',
+    background: 'var(--bg-default)',
     border: '1px solid #30363d',
     borderRadius: '8px',
     width: '100%',
@@ -126,10 +126,10 @@ const s = {
     display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
     padding: '16px 20px', borderBottom: '1px solid #21262d',
   },
-  title: { fontSize: '14px', fontWeight: 600, color: '#e6edf3' },
-  subtitle: { fontSize: '12px', color: '#8b949e', marginTop: '2px' },
+  title: { fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' },
+  subtitle: { fontSize: '12px', color: 'var(--text-secondary)', marginTop: '2px' },
   closeBtn: {
-    background: 'none', border: 'none', color: '#8b949e',
+    background: 'none', border: 'none', color: 'var(--text-secondary)',
     fontSize: '14px', cursor: 'pointer', padding: '0 4px', lineHeight: 1,
   },
   body: { padding: '16px 20px' },
@@ -145,7 +145,7 @@ const s = {
     marginTop: '20px', paddingTop: '14px', borderTop: '1px solid #21262d',
   },
   submitBtn: {
-    padding: '6px 16px', background: '#238636', color: '#fff',
+    padding: '6px 16px', background: 'var(--accent-green)', color: 'var(--text-inv)',
     border: '1px solid rgba(240,246,252,0.1)', borderRadius: '6px',
     fontSize: '13px', fontWeight: 500, cursor: 'pointer',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -153,12 +153,12 @@ const s = {
   },
   spinner: {
     width: '14px', height: '14px',
-    border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff',
+    border: '2px solid rgba(255,255,255,0.3)', borderTopColor: 'var(--text-inv)',
     borderRadius: '50%', display: 'inline-block', animation: 'spin 0.6s linear infinite',
   },
   error: {
     margin: '0 20px 0', padding: '8px 12px',
-    background: 'rgba(248,81,73,0.1)', color: '#f85149',
+    background: 'var(--bg-down-subtle)', color: 'var(--status-down)',
     border: '1px solid rgba(248,81,73,0.25)', borderRadius: '6px', fontSize: '13px',
   },
 };

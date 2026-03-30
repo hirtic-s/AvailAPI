@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function UptimeBadge({ status }) {
   const cfg = {
-    UP:      { color: '#56d364', bg: 'rgba(46,160,67,0.15)', border: 'rgba(46,160,67,0.3)' },
-    DOWN:    { color: '#f85149', bg: 'rgba(248,81,73,0.15)', border: 'rgba(248,81,73,0.3)' },
-    TIMEOUT: { color: '#e3b341', bg: 'rgba(227,179,65,0.15)', border: 'rgba(227,179,65,0.3)' },
-    UNKNOWN: { color: '#6e7681', bg: 'rgba(110,118,129,0.1)', border: 'rgba(110,118,129,0.25)' },
+    UP:      { color: 'var(--status-up)', bg: 'var(--bg-up-subtle)', border: 'var(--border-up-subtle)' },
+    DOWN:    { color: 'var(--status-down)', bg: 'var(--bg-down-subtle)', border: 'var(--border-down-subtle)' },
+    TIMEOUT: { color: 'var(--status-timeout)', bg: 'var(--bg-timeout-subtle)', border: 'var(--border-timeout-subtle)' },
+    UNKNOWN: { color: 'var(--text-muted)', bg: 'var(--bg-unknown-subtle)', border: 'var(--border-unknown-subtle)' },
   };
   const c = cfg[status] || cfg.UNKNOWN;
   return (

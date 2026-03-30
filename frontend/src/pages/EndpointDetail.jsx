@@ -27,13 +27,13 @@ export default function EndpointDetail() {
     ? Math.round(validLat.reduce((a, b) => a + b.latencyMs, 0) / validLat.length) : 0;
 
   const stats = [
-    { label: '24h Uptime',    value: `${uptime}%`,       color: '#56d364' },
-    { label: 'Avg Latency',   value: `${avgLatency}ms`,  color: '#58a6ff' },
-    { label: 'Checks (24h)',  value: `${history.length}`, color: '#8b949e' },
+    { label: '24h Uptime',    value: `${uptime}%`,       color: 'var(--status-up)' },
+    { label: 'Avg Latency',   value: `${avgLatency}ms`,  color: 'var(--text-link)' },
+    { label: 'Checks (24h)',  value: `${history.length}`, color: 'var(--text-secondary)' },
   ];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0d1117' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)' }}>
       <Navbar />
       <div style={s.container}>
         <button style={s.back} onClick={() => navigate('/dashboard')}>
@@ -91,8 +91,8 @@ export default function EndpointDetail() {
                         <td style={s.td}><UptimeBadge status={p.status} /></td>
                         <td style={{ ...s.td, fontFamily: 'monospace' }}>
                           {p.latencyMs >= 0
-                            ? <span style={{ color: p.latencyMs > 1000 ? '#e3b341' : '#56d364' }}>{p.latencyMs}ms</span>
-                            : <span style={{ color: '#6e7681' }}>—</span>}
+                            ? <span style={{ color: p.latencyMs > 1000 ? 'var(--status-timeout)' : 'var(--status-up)' }}>{p.latencyMs}ms</span>
+                            : <span style={{ color: 'var(--text-muted)' }}>—</span>}
                         </td>
                       </tr>
                     ))}
@@ -110,38 +110,38 @@ export default function EndpointDetail() {
 const s = {
   container: { maxWidth: '900px', margin: '0 auto', padding: '20px 16px 40px' },
   back: {
-    background: 'none', border: 'none', color: '#8b949e', fontSize: '13px',
+    background: 'none', border: 'none', color: 'var(--text-secondary)', fontSize: '13px',
     cursor: 'pointer', padding: '0', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '4px',
   },
   header: {
     display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
     marginBottom: '16px',
   },
-  title: { fontSize: '20px', fontWeight: 700, color: '#e6edf3', marginBottom: '4px' },
-  url: { fontSize: '12px', color: '#8b949e', fontFamily: 'monospace' },
+  title: { fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '4px' },
+  url: { fontSize: '12px', color: 'var(--text-secondary)', fontFamily: 'monospace' },
   statsRow: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px', marginBottom: '16px' },
   statCard: {
-    background: '#161b22', border: '1px solid #30363d', borderRadius: '6px',
+    background: 'var(--bg-default)', border: '1px solid #30363d', borderRadius: '6px',
     padding: '16px', textAlign: 'center',
   },
   statValue: { fontSize: '24px', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.1 },
-  statLabel: { fontSize: '11px', color: '#6e7681', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.04em' },
+  statLabel: { fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.04em' },
   card: {
-    background: '#161b22', border: '1px solid #30363d', borderRadius: '6px',
+    background: 'var(--bg-default)', border: '1px solid #30363d', borderRadius: '6px',
     padding: '16px', marginBottom: '16px',
   },
   cardHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' },
-  cardTitle: { fontSize: '14px', fontWeight: 600, color: '#e6edf3' },
+  cardTitle: { fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' },
   badge: {
-    fontSize: '11px', color: '#8b949e', background: '#21262d',
+    fontSize: '11px', color: 'var(--text-secondary)', background: 'var(--bg-subtle)',
     border: '1px solid #30363d', borderRadius: '20px', padding: '1px 8px',
   },
   table: { width: '100%', borderCollapse: 'collapse' },
   th: {
     textAlign: 'left', padding: '8px 12px', fontSize: '11px', fontWeight: 600,
-    color: '#6e7681', textTransform: 'uppercase', letterSpacing: '0.04em',
+    color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em',
     borderBottom: '1px solid #21262d',
   },
   tr: { borderBottom: '1px solid #21262d' },
-  td: { padding: '8px 12px', fontSize: '12px', color: '#8b949e' },
+  td: { padding: '8px 12px', fontSize: '12px', color: 'var(--text-secondary)' },
 };

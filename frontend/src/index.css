@@ -20,21 +20,28 @@
   --text-muted: #6e7681;
   --text-link: #58a6ff;
 
-  /* Accent — Success Green */
+  /* Accent */
   --accent-green: #238636;
   --accent-green-hover: #2ea043;
-  --accent-green-em: #56d364;
-
+  
   /* Status */
   --status-up: #56d364;
   --status-down: #f85149;
   --status-timeout: #e3b341;
   --status-unknown: #6e7681;
 
-  /* Functional */
-  --color-danger: #f85149;
-  --color-warning: #e3b341;
-  --color-info: #58a6ff;
+  /* Subtle Status Backgrounds/Borders */
+  --bg-up-subtle: rgba(46,160,67,0.15);
+  --border-up-subtle: rgba(46,160,67,0.3);
+  --bg-down-subtle: rgba(248,81,73,0.15);
+  --border-down-subtle: rgba(248,81,73,0.3);
+  --bg-timeout-subtle: rgba(227,179,65,0.15);
+  --border-timeout-subtle: rgba(227,179,65,0.3);
+  --bg-unknown-subtle: rgba(110,118,129,0.1);
+  --border-unknown-subtle: rgba(110,118,129,0.25);
+  --border-white-alpha: rgba(240,246,252,0.1);
+
+  --text-inv: #ffffff;
 
   /* Shadows */
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
@@ -44,6 +51,45 @@
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
+}
+
+[data-theme="light"] {
+  --bg-canvas: #f6f8fa;
+  --bg-default: #ffffff;
+  --bg-subtle: #f3f4f6;
+  --bg-hover: #e5e7eb;
+
+  --border-default: #d0d7de;
+  --border-muted: #e1e4e8;
+  --border-hover: #b1bac4;
+
+  --text-primary: #24292f;
+  --text-secondary: #57606a;
+  --text-muted: #6e7781;
+  --text-link: #0969da;
+
+  --accent-green: #2da44e;
+  --accent-green-hover: #2c974b;
+  
+  --status-up: #1a7f37;
+  --status-down: #cf222e;
+  --status-timeout: #9a6700;
+  --status-unknown: #6e7781;
+
+  --bg-up-subtle: rgba(45,164,78,0.1);
+  --border-up-subtle: rgba(45,164,78,0.3);
+  --bg-down-subtle: rgba(207,34,46,0.1);
+  --border-down-subtle: rgba(207,34,46,0.3);
+  --bg-timeout-subtle: rgba(154,103,0,0.1);
+  --border-timeout-subtle: rgba(154,103,0,0.3);
+  --bg-unknown-subtle: rgba(110,119,129,0.1);
+  --border-unknown-subtle: rgba(110,119,129,0.3);
+  --border-white-alpha: rgba(36,41,47,0.1);
+
+  --text-inv: #ffffff;
+  
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* Reset */

@@ -5,10 +5,10 @@ export default function SSLBadge({ url }) {
   return (
     <span style={{
       display: 'inline-flex', alignItems: 'center', gap: '3px',
-      background: isHttps ? 'rgba(46,160,67,0.1)' : 'rgba(227,179,65,0.1)',
-      color: isHttps ? '#56d364' : '#e3b341',
+      background: isHttps ? 'var(--bg-up-subtle)' : 'var(--bg-timeout-subtle)',
+      color: isHttps ? 'var(--status-up)' : 'var(--status-timeout)',
       padding: '1px 7px', borderRadius: '20px', fontSize: '11px', fontWeight: 600,
-      border: `1px solid ${isHttps ? 'rgba(46,160,67,0.25)' : 'rgba(227,179,65,0.25)'}`,
+      border: `1px solid ${isHttps ? 'var(--border-up-subtle)' : 'var(--border-timeout-subtle)'}`,
       letterSpacing: '0.01em', whiteSpace: 'nowrap',
     }}>
       {isHttps ? '🔒' : '⚠️'} {isHttps ? 'HTTPS' : 'HTTP'}

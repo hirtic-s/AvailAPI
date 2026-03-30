@@ -15,10 +15,10 @@ function statusDotClass(s) {
 
 function StatusPill({ status }) {
   const cfg = {
-    UP:      { color: '#56d364', bg: 'rgba(46,160,67,0.15)', border: 'rgba(46,160,67,0.3)' },
-    DOWN:    { color: '#f85149', bg: 'rgba(248,81,73,0.15)', border: 'rgba(248,81,73,0.3)' },
-    TIMEOUT: { color: '#e3b341', bg: 'rgba(227,179,65,0.15)', border: 'rgba(227,179,65,0.3)' },
-    UNKNOWN: { color: '#6e7681', bg: 'rgba(110,118,129,0.1)', border: 'rgba(110,118,129,0.25)' },
+    UP:      { color: 'var(--status-up)', bg: 'var(--bg-up-subtle)', border: 'var(--border-up-subtle)' },
+    DOWN:    { color: 'var(--status-down)', bg: 'var(--bg-down-subtle)', border: 'var(--border-down-subtle)' },
+    TIMEOUT: { color: 'var(--status-timeout)', bg: 'var(--bg-timeout-subtle)', border: 'var(--border-timeout-subtle)' },
+    UNKNOWN: { color: 'var(--text-muted)', bg: 'var(--bg-unknown-subtle)', border: 'var(--border-unknown-subtle)' },
   };
   const c = cfg[status] || cfg.UNKNOWN;
   return (
@@ -118,7 +118,7 @@ export default function Dashboard() {
 
   // ── render ──────────────────────────────────────────────────────────────────
   return (
-    <div style={{ minHeight: '100vh', background: '#0d1117', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
 
       <div style={s.layout}>
@@ -157,7 +157,7 @@ export default function Dashboard() {
                   key={ep.id}
                   style={{
                     ...s.epRow,
-                    background: isActive ? '#21262d' : 'transparent',
+                    background: isActive ? 'var(--bg-subtle)' : 'transparent',
                     borderLeft: isActive ? '3px solid #238636' : '3px solid transparent',
                   }}
                   onClick={() => setSelected(isActive ? null : ep.id)}
@@ -173,7 +173,7 @@ export default function Dashboard() {
                     <button style={s.tinyBtn} onClick={() => navigate(`/endpoints/${ep.id}`)}>
                       ↗
                     </button>
-                    <button style={{ ...s.tinyBtn, color: '#f85149' }} onClick={(e) => deleteEndpoint(ep.id, e)}>
+                    <button style={{ ...s.tinyBtn, color: 'var(--status-down)' }} onClick={(e) => deleteEndpoint(ep.id, e)}>
                       ✕
                     </button>
                   </div>
@@ -214,7 +214,7 @@ export default function Dashboard() {
               <tbody>
                 {visibleChecks.length === 0 && (
                   <tr>
-                    <td colSpan={4} style={{ ...s.td, textAlign: 'center', color: '#6e7681', padding: '32px' }}>
+                    <td colSpan={4} style={{ ...s.td, textAlign: 'center', color: 'var(--text-muted)', padding: '32px' }}>
                       No health checks yet
                     </td>
                   </tr>
@@ -224,15 +224,15 @@ export default function Dashboard() {
                     onClick={() => navigate(`/endpoints/${c.epId}`)}
                   >
                     <td style={s.td}><StatusPill status={c.status} /></td>
-                    <td style={{ ...s.td, color: '#e6edf3', fontWeight: 500 }}>
+                    <td style={{ ...s.td, color: 'var(--text-primary)', fontWeight: 500 }}>
                       {c.epName}
                     </td>
                     <td style={{ ...s.td, fontFamily: 'monospace' }}>
                       {c.latencyMs >= 0
-                        ? <span style={{ color: c.latencyMs > 1000 ? '#e3b341' : '#56d364' }}>{c.latencyMs}ms</span>
-                        : <span style={{ color: '#6e7681' }}>—</span>}
+                        ? <span style={{ color: c.latencyMs > 1000 ? 'var(--status-timeout)' : 'var(--status-up)' }}>{c.latencyMs}ms</span>
+                        : <span style={{ color: 'var(--text-muted)' }}>—</span>}
                     </td>
-                    <td style={{ ...s.td, color: '#8b949e' }}>
+                    <td style={{ ...s.td, color: 'var(--text-secondary)' }}>
                       {formatTime(c.checkedAt)}
                     </td>
                   </tr>
@@ -252,9 +252,9 @@ export default function Dashboard() {
               <div style={s.overviewLabel}>Global Uptime (24h)</div>
               <div style={{
                 ...s.overviewValue,
-                color: globalUptime === null ? '#6e7681'
-                  : parseFloat(globalUptime) >= 99 ? '#56d364'
-                  : parseFloat(globalUptime) >= 95 ? '#e3b341' : '#f85149',
+                color: globalUptime === null ? 'var(--text-muted)'
+                  : parseFloat(globalUptime) >= 99 ? 'var(--status-up)'
+                  : parseFloat(globalUptime) >= 95 ? 'var(--status-timeout)' : 'var(--status-down)',
               }}>
                 {globalUptime !== null ? `${globalUptime}%` : '—'}
               </div>
@@ -263,7 +263,7 @@ export default function Dashboard() {
             {/* Active endpoints */}
             <div style={s.overviewCard}>
               <div style={s.overviewLabel}>Active Endpoints</div>
-              <div style={{ ...s.overviewValue, color: '#e6edf3' }}>{endpoints.length}</div>
+              <div style={{ ...s.overviewValue, color: 'var(--text-primary)' }}>{endpoints.length}</div>
             </div>
 
             {/* Uptime per endpoint */}
@@ -280,7 +280,7 @@ export default function Dashboard() {
                       <span style={s.epStatName}>{ep.name || ep.url}</span>
                       <span style={{
                         ...s.epStatPct,
-                        color: pct === null ? '#6e7681' : parseFloat(pct) >= 99 ? '#56d364' : parseFloat(pct) >= 90 ? '#e3b341' : '#f85149',
+                        color: pct === null ? 'var(--text-muted)' : parseFloat(pct) >= 99 ? 'var(--status-up)' : parseFloat(pct) >= 90 ? 'var(--status-timeout)' : 'var(--status-down)',
                       }}>
                         {pct !== null ? `${pct}%` : '—'}
                       </span>
@@ -302,8 +302,8 @@ export default function Dashboard() {
 
             {recentErrors.length === 0 ? (
               <div style={s.noErrors}>
-                <span style={{ color: '#56d364', fontSize: '12px' }}>● </span>
-                <span style={{ color: '#8b949e', fontSize: '12px' }}>No recent errors</span>
+                <span style={{ color: 'var(--status-up)', fontSize: '12px' }}>● </span>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '12px' }}>No recent errors</span>
               </div>
             ) : (
               recentErrors.map((c, i) => (
@@ -344,7 +344,7 @@ const s = {
 
   // LEFT
   left: {
-    background: '#161b22',
+    background: 'var(--bg-default)',
     borderRight: '1px solid #30363d',
     display: 'flex',
     flexDirection: 'column',
@@ -360,7 +360,7 @@ const s = {
   sidebarTitle: {
     fontSize: '12px',
     fontWeight: 600,
-    color: '#8b949e',
+    color: 'var(--text-secondary)',
     textTransform: 'uppercase',
     letterSpacing: '0.04em',
   },
@@ -368,7 +368,7 @@ const s = {
   emptyState: {
     padding: '16px 14px',
     fontSize: '12px',
-    color: '#6e7681',
+    color: 'var(--text-muted)',
     lineHeight: 1.5,
   },
   epRow: {
@@ -384,7 +384,7 @@ const s = {
   epRowName: {
     display: 'block',
     fontSize: '13px',
-    color: '#e6edf3',
+    color: 'var(--text-primary)',
     fontWeight: 500,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -393,7 +393,7 @@ const s = {
   epRowMeta: {
     display: 'block',
     fontSize: '11px',
-    color: '#6e7681',
+    color: 'var(--text-muted)',
     marginTop: '1px',
   },
   epRowActions: {
@@ -405,7 +405,7 @@ const s = {
   tinyBtn: {
     background: 'none',
     border: 'none',
-    color: '#8b949e',
+    color: 'var(--text-secondary)',
     fontSize: '11px',
     padding: '2px 4px',
     borderRadius: '3px',
@@ -415,7 +415,7 @@ const s = {
 
   // CENTER
   center: {
-    background: '#0d1117',
+    background: 'var(--bg-canvas)',
     display: 'flex',
     flexDirection: 'column',
     overflowY: 'auto',
@@ -429,26 +429,26 @@ const s = {
     borderBottom: '1px solid #21262d',
     position: 'sticky',
     top: 0,
-    background: '#0d1117',
+    background: 'var(--bg-canvas)',
     zIndex: 10,
   },
   feedTitle: {
     fontSize: '13px',
     fontWeight: 600,
-    color: '#e6edf3',
+    color: 'var(--text-primary)',
   },
   feedCount: {
     fontSize: '11px',
-    color: '#6e7681',
-    background: '#21262d',
+    color: 'var(--text-muted)',
+    background: 'var(--bg-subtle)',
     border: '1px solid #30363d',
     borderRadius: '20px',
     padding: '1px 8px',
   },
   clearBtn: {
     fontSize: '11px',
-    color: '#8b949e',
-    background: '#21262d',
+    color: 'var(--text-secondary)',
+    background: 'var(--bg-subtle)',
     border: '1px solid #30363d',
     borderRadius: '4px',
     padding: '2px 7px',
@@ -461,7 +461,7 @@ const s = {
     padding: '8px 16px',
     fontSize: '11px',
     fontWeight: 600,
-    color: '#6e7681',
+    color: 'var(--text-muted)',
     textAlign: 'left',
     textTransform: 'uppercase',
     letterSpacing: '0.04em',
@@ -475,13 +475,13 @@ const s = {
   td: {
     padding: '8px 16px',
     fontSize: '12px',
-    color: '#8b949e',
+    color: 'var(--text-secondary)',
     verticalAlign: 'middle',
   },
 
   // RIGHT
   right: {
-    background: '#161b22',
+    background: 'var(--bg-default)',
     display: 'flex',
     flexDirection: 'column',
     overflowY: 'auto',
@@ -493,7 +493,7 @@ const s = {
   rightTitle: {
     fontSize: '12px',
     fontWeight: 600,
-    color: '#8b949e',
+    color: 'var(--text-secondary)',
     textTransform: 'uppercase',
     letterSpacing: '0.04em',
     marginBottom: '10px',
@@ -503,15 +503,15 @@ const s = {
   },
   errorBadge: {
     fontSize: '11px',
-    background: 'rgba(248,81,73,0.15)',
-    color: '#f85149',
+    background: 'var(--bg-down-subtle)',
+    color: 'var(--status-down)',
     border: '1px solid rgba(248,81,73,0.3)',
     borderRadius: '20px',
     padding: '0 6px',
     fontWeight: 600,
   },
   overviewCard: {
-    background: '#0d1117',
+    background: 'var(--bg-canvas)',
     border: '1px solid #30363d',
     borderRadius: '6px',
     padding: '10px 12px',
@@ -520,7 +520,7 @@ const s = {
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  overviewLabel: { fontSize: '12px', color: '#8b949e' },
+  overviewLabel: { fontSize: '12px', color: 'var(--text-secondary)' },
   overviewValue: { fontSize: '18px', fontWeight: 700, letterSpacing: '-0.02em' },
   epStatRow: {
     display: 'flex',
@@ -556,11 +556,11 @@ const s = {
   errorName: {
     display: 'block',
     fontSize: '12px',
-    color: '#e6edf3',
+    color: 'var(--text-primary)',
     fontWeight: 500,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-  errorTime: { display: 'block', fontSize: '11px', color: '#6e7681', marginTop: '1px' },
+  errorTime: { display: 'block', fontSize: '11px', color: 'var(--text-muted)', marginTop: '1px' },
 };
