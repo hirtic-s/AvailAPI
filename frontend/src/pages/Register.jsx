@@ -29,7 +29,7 @@ export default function Register() {
     { name: 'teamName', label: 'Team Name',  placeholder: 'Acme Corp',       type: 'text' },
     { name: 'slug',     label: 'Team Slug',   placeholder: 'acme-corp',       type: 'text' },
     { name: 'email',    label: 'Email',       placeholder: 'admin@acme.com',  type: 'email' },
-    { name: 'password', label: 'Password',    placeholder: '••••••••',        type: 'password' },
+    { name: 'password', label: 'Password',    placeholder: '••••••••',        type: 'password', minLength: 6, extra: 'Minimum 6 characters' },
   ];
 
   return (
@@ -50,8 +50,11 @@ export default function Register() {
         <form onSubmit={submit}>
           {fields.map(f => (
             <div key={f.name} style={s.field}>
-              <label style={s.label}>{f.label}</label>
-              <input className="gh-input" name={f.name} type={f.type}
+              <div style={s.labelRow}>
+                <label style={s.label}>{f.label}</label>
+                {f.extra && <span style={s.helperText}>{f.extra}</span>}
+              </div>
+              <input className="gh-input" name={f.name} type={f.type} minLength={f.minLength}
                 placeholder={f.placeholder} onChange={handle} required />
             </div>
           ))}
@@ -93,7 +96,9 @@ const s = {
   heading: { fontSize: '20px', fontWeight: 600, color: 'var(--text-primary)', textAlign: 'center', marginBottom: '4px' },
   sub: { fontSize: '13px', color: 'var(--text-secondary)', textAlign: 'center', marginBottom: '20px' },
   field: { marginBottom: '10px' },
-  label: { display: 'block', fontSize: '13px', fontWeight: 600, color: '#c9d1d9', marginBottom: '5px' },
+  labelRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '5px' },
+  label: { display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' },
+  helperText: { fontSize: '11px', color: 'var(--text-muted)' },
   btn: {
     display: 'flex', width: '100%', padding: '8px 16px',
     background: 'var(--accent-green)', color: 'var(--text-inv)', border: '1px solid rgba(240,246,252,0.1)',
