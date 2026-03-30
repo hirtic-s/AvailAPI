@@ -1,47 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   const handleLogout = () => { logout(); navigate('/login'); };
 
   return (
-    <nav style={{
-      ...styles.nav,
-      background: scrolled ? 'rgba(26, 10, 46, 0.85)' : 'rgba(26, 10, 46, 0.3)',
-      backdropFilter: 'blur(20px) saturate(180%)',
-      WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-      borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent',
-      boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none',
-    }}>
-      <Link to="/dashboard" style={styles.brand}>
-        <span style={styles.logoIcon}>◆</span>
-        <span style={styles.logoText}>AvailAPI</span>
-      </Link>
-      <div style={styles.right}>
+    <nav style={s.nav}>
+      <div style={s.left}>
+        <Link to="/dashboard" style={s.brand}>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style={{ color: '#58a6ff' }}>
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          <span style={s.brandText}>AvailAPI</span>
+        </Link>
+      </div>
+
+      <div style={s.right}>
         {user && (
           <>
-            <Link to={`/status/${user.slug}`} style={styles.link}>
-              <span style={styles.linkIcon}>↗</span> Status Page
+            <Link to={`/status/${user.slug}`} style={s.navLink}>
+              Status Page
             </Link>
-            <div style={styles.divider} />
-            <div style={styles.userChip}>
-              <div style={styles.avatar}>{user.email?.[0]?.toUpperCase()}</div>
-              <span style={styles.email}>{user.email}</span>
+            <div style={s.divider} />
+            <div style={s.avatarWrap} title={user.email}>
+              <div style={s.avatar}>{user.email?.[0]?.toUpperCase()}</div>
             </div>
-            <button style={styles.btn} onClick={handleLogout}>
-              Sign Out
-            </button>
+            <button style={s.signOut} onClick={handleLogout}>Sign out</button>
           </>
         )}
       </div>
@@ -49,96 +36,68 @@ export default function Navbar() {
   );
 }
 
-const styles = {
+const s = {
   nav: {
+    height: '48px',
+    background: '#161b22',
+    borderBottom: '1px solid #30363d',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0.85rem 2rem',
+    padding: '0 16px',
     position: 'sticky',
     top: 0,
     zIndex: 100,
-    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+    flexShrink: 0,
   },
+  left: { display: 'flex', alignItems: 'center', gap: '8px' },
   brand: {
     display: 'flex',
     alignItems: 'center',
-    gap: '0.5rem',
+    gap: '8px',
     textDecoration: 'none',
   },
-  logoIcon: {
-    fontSize: '1.1rem',
-    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    filter: 'drop-shadow(0 0 8px rgba(232,68,109,0.4))',
+  brandText: {
+    fontSize: '14px',
+    fontWeight: 600,
+    color: '#e6edf3',
   },
-  logoText: {
-    fontSize: '1.2rem',
-    fontWeight: 800,
-    letterSpacing: '-0.02em',
-    color: '#ffffff',
-  },
-  right: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-  },
-  link: {
-    color: 'rgba(255,255,255,0.7)',
-    fontSize: '0.85rem',
-    fontWeight: 500,
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.35rem',
-    transition: 'color 0.2s',
-    padding: '0.4rem 0.75rem',
-    borderRadius: '8px',
-    border: '1px solid transparent',
-  },
-  linkIcon: {
-    fontSize: '0.7rem',
+  right: { display: 'flex', alignItems: 'center', gap: '8px' },
+  navLink: {
+    fontSize: '13px',
+    color: '#8b949e',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    transition: 'color 0.15s',
+    textDecoration: 'none',
   },
   divider: {
     width: '1px',
-    height: '20px',
-    background: 'rgba(255,255,255,0.12)',
+    height: '16px',
+    background: '#30363d',
   },
-  userChip: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    padding: '0.3rem 0.75rem 0.3rem 0.3rem',
-    borderRadius: '999px',
-    background: 'rgba(255,255,255,0.06)',
-    border: '1px solid rgba(255,255,255,0.08)',
-  },
+  avatarWrap: { display: 'flex', alignItems: 'center' },
   avatar: {
-    width: '26px',
-    height: '26px',
+    width: '28px',
+    height: '28px',
     borderRadius: '50%',
-    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
+    background: '#238636',
+    border: '1px solid #30363d',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: '0.7rem',
-    fontWeight: 700,
-    color: '#fff',
-  },
-  email: {
-    color: 'rgba(255,255,255,0.65)',
-    fontSize: '0.82rem',
-    fontWeight: 500,
-  },
-  btn: {
-    padding: '0.45rem 1.1rem',
-    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '999px',
+    fontSize: '12px',
     fontWeight: 600,
-    fontSize: '0.82rem',
-    transition: 'all 0.25s ease',
-    boxShadow: '0 2px 12px rgba(232,68,109,0.25)',
+    color: '#fff',
+  },
+  signOut: {
+    background: 'none',
+    border: 'none',
+    color: '#8b949e',
+    fontSize: '13px',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    transition: 'color 0.15s',
   },
 };

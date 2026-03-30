@@ -1,69 +1,26 @@
 import React from 'react';
 
 export default function UptimeBadge({ status }) {
-  const config = {
-    UP: {
-      bg: 'rgba(16, 185, 129, 0.12)',
-      color: '#34d399',
-      border: 'rgba(16, 185, 129, 0.2)',
-      glow: '0 0 12px rgba(16, 185, 129, 0.15)',
-      dot: '#10b981',
-      label: 'UP',
-    },
-    DOWN: {
-      bg: 'rgba(239, 68, 68, 0.12)',
-      color: '#f87171',
-      border: 'rgba(239, 68, 68, 0.2)',
-      glow: '0 0 12px rgba(239, 68, 68, 0.15)',
-      dot: '#ef4444',
-      label: 'DOWN',
-    },
-    TIMEOUT: {
-      bg: 'rgba(245, 158, 11, 0.12)',
-      color: '#fbbf24',
-      border: 'rgba(245, 158, 11, 0.2)',
-      glow: '0 0 12px rgba(245, 158, 11, 0.15)',
-      dot: '#f59e0b',
-      label: 'TIMEOUT',
-    },
-    UNKNOWN: {
-      bg: 'rgba(139, 139, 163, 0.12)',
-      color: '#8b8ba3',
-      border: 'rgba(139, 139, 163, 0.2)',
-      glow: 'none',
-      dot: '#8b8ba3',
-      label: 'UNKNOWN',
-    },
+  const cfg = {
+    UP:      { color: '#56d364', bg: 'rgba(46,160,67,0.15)', border: 'rgba(46,160,67,0.3)' },
+    DOWN:    { color: '#f85149', bg: 'rgba(248,81,73,0.15)', border: 'rgba(248,81,73,0.3)' },
+    TIMEOUT: { color: '#e3b341', bg: 'rgba(227,179,65,0.15)', border: 'rgba(227,179,65,0.3)' },
+    UNKNOWN: { color: '#6e7681', bg: 'rgba(110,118,129,0.1)', border: 'rgba(110,118,129,0.25)' },
   };
-
-  const c = config[status] || config.UNKNOWN;
-
+  const c = cfg[status] || cfg.UNKNOWN;
   return (
     <span style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '0.4rem',
-      background: c.bg,
-      color: c.color,
-      padding: '0.3rem 0.8rem',
-      borderRadius: '999px',
-      fontWeight: 700,
-      fontSize: '0.72rem',
-      letterSpacing: '0.04em',
-      textTransform: 'uppercase',
-      border: `1px solid ${c.border}`,
-      boxShadow: c.glow,
+      display: 'inline-flex', alignItems: 'center', gap: '4px',
+      padding: '1px 7px', borderRadius: '20px', fontSize: '11px', fontWeight: 600,
+      letterSpacing: '0.02em', color: c.color, background: c.bg, border: `1px solid ${c.border}`,
       whiteSpace: 'nowrap',
     }}>
       <span style={{
-        width: '6px',
-        height: '6px',
-        borderRadius: '50%',
-        background: c.dot,
-        boxShadow: `0 0 6px ${c.dot}`,
+        width: 5, height: 5, borderRadius: '50%', background: c.color,
+        display: 'inline-block',
         animation: status === 'UP' ? 'glow-pulse 2s ease-in-out infinite' : 'none',
       }} />
-      {c.label}
+      {status || 'UNKNOWN'}
     </span>
   );
 }

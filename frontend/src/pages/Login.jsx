@@ -5,11 +5,10 @@ import api from '../api/axios';
 
 export default function Login() {
   const { login } = useAuth();
-  const navigate = useNavigate();
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const navigate  = useNavigate();
+  const [form, setForm]       = useState({ email: '', password: '' });
+  const [error, setError]     = useState('');
   const [loading, setLoading] = useState(false);
-  const [focused, setFocused] = useState('');
 
   const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -20,246 +19,103 @@ export default function Login() {
       const { data } = await api.post('/api/auth/login', form);
       login(data);
       navigate('/dashboard');
-    } catch (err) {
+    } catch {
       setError('Invalid email or password');
       setLoading(false);
     }
   };
 
   return (
-    <div style={styles.page}>
-      {/* Background animated orbs */}
-      <div style={styles.orb1} />
-      <div style={styles.orb2} />
+    <div style={s.page}>
+      <div style={s.card}>
+        <div style={s.logoRow}>
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="#58a6ff">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          <span style={s.logoText}>AvailAPI</span>
+        </div>
 
-      <div style={styles.card} className="animate-in">
-        {/* Gradient top border */}
-        <div style={styles.topBar} />
+        <h1 style={s.heading}>Sign in</h1>
+        <p style={s.sub}>to your monitoring dashboard</p>
 
-        <div style={styles.cardInner}>
-          <div style={styles.logoRow}>
-            <span style={styles.logoIcon}>◆</span>
-            <span style={styles.logoText}>AvailAPI</span>
+        {error && <div style={s.error}>{error}</div>}
+
+        <form onSubmit={submit}>
+          <div style={s.field}>
+            <label style={s.label}>Email address</label>
+            <input className="gh-input" name="email" type="email"
+              placeholder="you@company.com" onChange={handle} required />
           </div>
-          <h2 style={styles.subtitle}>Welcome back</h2>
-          <p style={styles.desc}>Sign in to your monitoring dashboard</p>
+          <div style={s.field}>
+            <label style={s.label}>Password</label>
+            <input className="gh-input" name="password" type="password"
+              placeholder="••••••••" onChange={handle} required />
+          </div>
+          <button style={s.btn} type="submit" disabled={loading}>
+            {loading ? <span style={s.spinner} /> : 'Sign in'}
+          </button>
+        </form>
 
-          {error && (
-            <div style={styles.error}>
-              <span>⚠</span> {error}
-            </div>
-          )}
-
-          <form onSubmit={submit}>
-            <div style={styles.field}>
-              <label style={styles.label}>Email</label>
-              <input
-                style={{
-                  ...styles.input,
-                  borderColor: focused === 'email' ? 'rgba(232,68,109,0.4)' : 'rgba(255,255,255,0.1)',
-                  boxShadow: focused === 'email' ? '0 0 20px rgba(232,68,109,0.1)' : 'none',
-                }}
-                name="email"
-                type="email"
-                placeholder="you@company.com"
-                onChange={handle}
-                onFocus={() => setFocused('email')}
-                onBlur={() => setFocused('')}
-                required
-              />
-            </div>
-
-            <div style={styles.field}>
-              <label style={styles.label}>Password</label>
-              <input
-                style={{
-                  ...styles.input,
-                  borderColor: focused === 'password' ? 'rgba(232,68,109,0.4)' : 'rgba(255,255,255,0.1)',
-                  boxShadow: focused === 'password' ? '0 0 20px rgba(232,68,109,0.1)' : 'none',
-                }}
-                name="password"
-                type="password"
-                placeholder="••••••••"
-                onChange={handle}
-                onFocus={() => setFocused('password')}
-                onBlur={() => setFocused('')}
-                required
-              />
-            </div>
-
-            <button style={styles.btn} type="submit" disabled={loading}>
-              {loading ? <span style={styles.spinner} /> : 'Sign In'}
-            </button>
-          </form>
-
-          <p style={styles.link}>
-            Don't have an account?{' '}
-            <Link to="/register" style={styles.linkAccent}>Create one</Link>
-          </p>
+        <div style={s.foot}>
+          New to AvailAPI? <Link to="/register" style={{ color: '#58a6ff' }}>Create an account</Link>
         </div>
       </div>
     </div>
   );
 }
 
-const styles = {
+const s = {
   page: {
     minHeight: '100vh',
+    background: '#0d1117',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'linear-gradient(135deg, #1a0a2e 0%, #2d1452 30%, #4a1a5e 60%, #6b2a6e 100%)',
-    position: 'relative',
-    overflow: 'hidden',
     padding: '1rem',
   },
-  orb1: {
-    position: 'absolute',
-    top: '10%',
-    left: '15%',
-    width: '400px',
-    height: '400px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(232,68,109,0.15) 0%, transparent 70%)',
-    filter: 'blur(60px)',
-    animation: 'float 8s ease-in-out infinite',
-    pointerEvents: 'none',
-  },
-  orb2: {
-    position: 'absolute',
-    bottom: '10%',
-    right: '15%',
-    width: '350px',
-    height: '350px',
-    borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)',
-    filter: 'blur(60px)',
-    animation: 'float 10s ease-in-out infinite reverse',
-    pointerEvents: 'none',
-  },
   card: {
-    background: 'rgba(30, 15, 55, 0.8)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '24px',
-    boxShadow: '0 24px 80px rgba(0,0,0,0.4), 0 0 40px rgba(232,68,109,0.06)',
+    background: '#161b22',
+    border: '1px solid #30363d',
+    borderRadius: '8px',
+    padding: '24px',
     width: '100%',
-    maxWidth: '420px',
-    overflow: 'hidden',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
-    position: 'relative',
-    zIndex: 1,
-  },
-  topBar: {
-    height: '3px',
-    background: 'linear-gradient(90deg, #e8446d, #ff6b8a, #ff8fa3, #e8446d)',
-    backgroundSize: '200% 100%',
-    animation: 'gradient-shift 4s ease infinite',
-  },
-  cardInner: {
-    padding: '2.5rem',
+    maxWidth: '340px',
   },
   logoRow: {
     display: 'flex',
     alignItems: 'center',
-    gap: '0.5rem',
-    marginBottom: '1.25rem',
+    justifyContent: 'center',
+    gap: '8px',
+    marginBottom: '16px',
   },
-  logoIcon: {
-    fontSize: '1.5rem',
-    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    filter: 'drop-shadow(0 0 10px rgba(232,68,109,0.4))',
-  },
-  logoText: {
-    fontSize: '1.5rem',
-    fontWeight: 800,
-    letterSpacing: '-0.02em',
-    color: '#ffffff',
-  },
-  subtitle: {
-    fontSize: '1.35rem',
-    fontWeight: 700,
-    color: '#ffffff',
-    marginBottom: '0.25rem',
-  },
-  desc: {
-    fontSize: '0.9rem',
-    color: '#c4b5d4',
-    marginBottom: '1.75rem',
-  },
-  field: {
-    marginBottom: '1.25rem',
-  },
+  logoText: { fontSize: '16px', fontWeight: 700, color: '#e6edf3' },
+  heading: { fontSize: '20px', fontWeight: 600, color: '#e6edf3', textAlign: 'center', marginBottom: '4px' },
+  sub: { fontSize: '13px', color: '#8b949e', textAlign: 'center', marginBottom: '20px' },
+  field: { marginBottom: '12px' },
   label: {
-    display: 'block',
-    fontSize: '0.78rem',
-    fontWeight: 600,
-    color: '#c4b5d4',
-    marginBottom: '0.5rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.04em',
-  },
-  input: {
-    display: 'block',
-    width: '100%',
-    padding: '0.8rem 1rem',
-    background: 'rgba(255,255,255,0.05)',
-    border: '1.5px solid rgba(255,255,255,0.1)',
-    borderRadius: '12px',
-    fontSize: '0.95rem',
-    color: '#ffffff',
-    outline: 'none',
-    transition: 'all 0.3s ease',
+    display: 'block', fontSize: '13px', fontWeight: 600,
+    color: '#c9d1d9', marginBottom: '6px',
   },
   btn: {
-    width: '100%',
-    padding: '0.85rem',
-    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '12px',
-    fontSize: '0.95rem',
-    fontWeight: 700,
-    marginTop: '0.5rem',
-    boxShadow: '0 4px 20px rgba(232,68,109,0.3)',
-    transition: 'all 0.3s ease',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '48px',
+    display: 'block', width: '100%', padding: '8px 16px',
+    background: '#238636', color: '#fff', border: '1px solid rgba(240,246,252,0.1)',
+    borderRadius: '6px', fontSize: '14px', fontWeight: 500,
+    cursor: 'pointer', marginTop: '16px', textAlign: 'center',
+    transition: 'background 0.15s', height: '36px',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
   },
   spinner: {
-    width: '20px',
-    height: '20px',
-    border: '2.5px solid rgba(255,255,255,0.3)',
-    borderTopColor: '#fff',
-    borderRadius: '50%',
-    display: 'inline-block',
-    animation: 'spin 0.6s linear infinite',
+    width: '16px', height: '16px',
+    border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff',
+    borderRadius: '50%', display: 'inline-block', animation: 'spin 0.6s linear infinite',
   },
   error: {
-    background: 'rgba(239, 68, 68, 0.12)',
-    color: '#f87171',
-    padding: '0.75rem 1rem',
-    borderRadius: '10px',
-    marginBottom: '1.25rem',
-    fontSize: '0.85rem',
-    border: '1px solid rgba(239, 68, 68, 0.2)',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.5rem',
+    background: 'rgba(248,81,73,0.1)', color: '#f85149',
+    border: '1px solid rgba(248,81,73,0.25)', borderRadius: '6px',
+    padding: '8px 12px', fontSize: '13px', marginBottom: '12px',
   },
-  link: {
-    textAlign: 'center',
-    marginTop: '1.5rem',
-    color: '#c4b5d4',
-    fontSize: '0.9rem',
-  },
-  linkAccent: {
-    color: '#ff6b8a',
-    fontWeight: 600,
-    transition: 'color 0.2s',
+  foot: {
+    marginTop: '16px', fontSize: '13px', color: '#8b949e', textAlign: 'center',
+    borderTop: '1px solid #21262d', paddingTop: '16px',
   },
 };

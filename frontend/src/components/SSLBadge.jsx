@@ -4,20 +4,14 @@ export default function SSLBadge({ url }) {
   const isHttps = url?.startsWith('https');
   return (
     <span style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '0.35rem',
-      background: isHttps ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)',
-      color: isHttps ? '#34d399' : '#fbbf24',
-      padding: '0.25rem 0.65rem',
-      borderRadius: '999px',
-      fontSize: '0.7rem',
-      fontWeight: 600,
-      letterSpacing: '0.02em',
-      border: `1px solid ${isHttps ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)'}`,
+      display: 'inline-flex', alignItems: 'center', gap: '3px',
+      background: isHttps ? 'rgba(46,160,67,0.1)' : 'rgba(227,179,65,0.1)',
+      color: isHttps ? '#56d364' : '#e3b341',
+      padding: '1px 7px', borderRadius: '20px', fontSize: '11px', fontWeight: 600,
+      border: `1px solid ${isHttps ? 'rgba(46,160,67,0.25)' : 'rgba(227,179,65,0.25)'}`,
+      letterSpacing: '0.01em', whiteSpace: 'nowrap',
     }}>
-      <span style={{ fontSize: '0.65rem' }}>{isHttps ? '🔒' : '⚠️'}</span>
-      {isHttps ? 'HTTPS' : 'HTTP'}
+      {isHttps ? '🔒' : '⚠️'} {isHttps ? 'HTTPS' : 'HTTP'}
     </span>
   );
 }

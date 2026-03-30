@@ -6,7 +6,7 @@ import SSLBadge from '../components/SSLBadge';
 
 export default function StatusPage() {
   const { slug } = useParams();
-  const [data, setData] = useState(null);
+  const [data, setData]   = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -16,48 +16,38 @@ export default function StatusPage() {
   }, [slug]);
 
   if (error) return (
-    <div style={styles.center}>
-      <div style={styles.errorCard} className="animate-in">
-        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
-        <h2 style={{ color: '#ffffff', marginBottom: '0.5rem' }}>{error}</h2>
-        <p style={{ color: '#8a7a9e' }}>The status page you're looking for doesn't exist.</p>
+    <div style={s.center}>
+      <div style={s.errorWrap}>
+        <div style={s.errorCode}>404</div>
+        <h2 style={s.errorTitle}>{error}</h2>
+        <p style={s.errorSub}>The status page you're looking for doesn't exist.</p>
       </div>
     </div>
   );
 
   if (!data) return (
-    <div style={styles.center}>
-      <div style={styles.loader}>
-        <span style={styles.spinnerLg} />
-      </div>
+    <div style={s.center}>
+      <span style={s.spinner} />
     </div>
   );
 
   const allUp = data.endpoints.every(e => e.status === 'UP');
 
   return (
-    <div style={styles.page}>
-      <div style={styles.container}>
+    <div style={s.page}>
+      <div style={s.container}>
         {/* Header */}
-        <div style={styles.header} className="animate-in">
-          <div style={styles.logoRow}>
-            <span style={styles.logoIcon}>◆</span>
-            <span style={styles.logoText}>{data.teamName}</span>
-          </div>
+        <div style={s.header}>
+          <h1 style={s.teamName}>{data.teamName}</h1>
           <div style={{
-            ...styles.overallBadge,
-            background: allUp ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-            color: allUp ? '#34d399' : '#f87171',
-            borderColor: allUp ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-            boxShadow: allUp ? '0 0 30px rgba(16, 185, 129, 0.1)' : '0 0 30px rgba(239, 68, 68, 0.1)',
+            ...s.overallBadge,
+            color: allUp ? '#56d364' : '#f85149',
+            borderColor: allUp ? 'rgba(86,211,100,0.3)' : 'rgba(248,81,73,0.3)',
+            background: allUp ? 'rgba(46,160,67,0.1)' : 'rgba(248,81,73,0.1)',
           }}>
             <span style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              background: allUp ? '#10b981' : '#ef4444',
-              display: 'inline-block',
-              boxShadow: `0 0 8px ${allUp ? '#10b981' : '#ef4444'}`,
+              width: 8, height: 8, borderRadius: '50%', display: 'inline-block',
+              background: allUp ? '#56d364' : '#f85149',
               animation: 'glow-pulse 2s ease-in-out infinite',
             }} />
             {allUp ? 'All Systems Operational' : 'Degraded Performance'}
@@ -65,32 +55,17 @@ export default function StatusPage() {
         </div>
 
         {/* Services */}
-        <div style={styles.section} className="animate-in animate-in-delay-1">
-          <h2 style={styles.sectionTitle}>
-            <span style={styles.sectionIcon}>◇</span> Services
-          </h2>
+        <div style={s.card}>
+          <div style={s.cardTitle}>Services</div>
           {data.endpoints.map((ep, i) => (
-            <div
-              key={ep.id}
-              style={{
-                ...styles.row,
-                animation: `fadeInUp 0.4s ease ${i * 0.05}s forwards`,
-                opacity: 0,
-              }}
-            >
-              <div style={styles.rowLeft}>
-                <span style={styles.epName}>{ep.name}</span>
+            <div key={ep.id} style={{ ...s.row, borderTop: i > 0 ? '1px solid #21262d' : 'none' }}>
+              <div style={s.rowLeft}>
+                <span style={s.epName}>{ep.name}</span>
                 <SSLBadge url={ep.url} />
               </div>
-              <div style={styles.rowRight}>
-                <div style={styles.metricPill}>
-                  <span style={styles.metricVal}>{ep.uptimePercent}%</span>
-                  <span style={styles.metricLabel}>uptime</span>
-                </div>
-                <div style={styles.metricPill}>
-                  <span style={styles.metricVal}>{ep.avgLatencyMs}ms</span>
-                  <span style={styles.metricLabel}>avg</span>
-                </div>
+              <div style={s.rowRight}>
+                <span style={s.metricPill}>{ep.uptimePercent}% uptime</span>
+                <span style={s.metricPill}>{ep.avgLatencyMs}ms avg</span>
                 <UptimeBadge status={ep.status} />
               </div>
             </div>
@@ -99,181 +74,74 @@ export default function StatusPage() {
 
         {/* Active Incidents */}
         {data.incidents?.filter(i => !i.resolvedAt).length > 0 && (
-          <div style={styles.section} className="animate-in animate-in-delay-2">
-            <h2 style={styles.sectionTitle}>
-              <span style={styles.sectionIcon}>⚠</span> Active Incidents
-            </h2>
+          <div style={{ ...s.card, borderColor: 'rgba(248,81,73,0.3)' }}>
+            <div style={{ ...s.cardTitle, color: '#f85149' }}>⚠ Active Incidents</div>
             {data.incidents.filter(i => !i.resolvedAt).map(inc => (
-              <div key={inc.id} style={styles.incident}>
-                <span style={styles.incidentDot} />
+              <div key={inc.id} style={s.incident}>
+                <span style={s.incDot} />
                 Ongoing since {new Date(inc.startedAt).toLocaleString()}
               </div>
             ))}
           </div>
         )}
 
-        {/* Footer */}
-        <p style={styles.footer}>
-          Last updated: {new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
+        <p style={s.footer}>
+          Last updated: {new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
         </p>
       </div>
     </div>
   );
 }
 
-const styles = {
-  page: {
-    minHeight: '100vh',
-  },
-  container: {
-    maxWidth: '760px',
-    margin: '0 auto',
-    padding: '3rem 1.5rem',
-  },
-  header: {
-    marginBottom: '2.5rem',
-  },
-  logoRow: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.6rem',
-    marginBottom: '1.25rem',
-  },
-  logoIcon: {
-    fontSize: '1.5rem',
-    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    filter: 'drop-shadow(0 0 10px rgba(232,68,109,0.4))',
-  },
-  logoText: {
-    fontSize: '2rem',
-    fontWeight: 800,
-    letterSpacing: '-0.02em',
-    color: '#ffffff',
-  },
+const s = {
+  page: { minHeight: '100vh', background: '#0d1117' },
+  container: { maxWidth: '700px', margin: '0 auto', padding: '32px 16px' },
+  header: { marginBottom: '24px' },
+  teamName: { fontSize: '24px', fontWeight: 700, color: '#e6edf3', marginBottom: '12px' },
   overallBadge: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.6rem',
-    padding: '0.7rem 1.5rem',
-    borderRadius: '999px',
-    fontWeight: 700,
-    fontSize: '0.9rem',
-    border: '1px solid',
+    display: 'inline-flex', alignItems: 'center', gap: '8px',
+    padding: '6px 14px', borderRadius: '20px', fontWeight: 600, fontSize: '13px', border: '1px solid',
   },
-  section: {
-    background: 'rgba(30, 15, 55, 0.55)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '16px',
-    padding: '1.5rem',
-    marginBottom: '1.5rem',
-    backdropFilter: 'blur(10px)',
-    WebkitBackdropFilter: 'blur(10px)',
+  card: {
+    background: '#161b22', border: '1px solid #30363d',
+    borderRadius: '6px', padding: '16px', marginBottom: '16px',
   },
-  sectionTitle: {
-    fontSize: '0.85rem',
-    fontWeight: 700,
-    color: '#c4b5d4',
-    marginBottom: '1rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-  },
-  sectionIcon: {
-    background: 'linear-gradient(135deg, #e8446d, #ff6b8a)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+  cardTitle: {
+    fontSize: '12px', fontWeight: 600, color: '#8b949e',
+    textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '12px',
   },
   row: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '1rem 0',
-    borderTop: '1px solid rgba(255,255,255,0.06)',
+    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+    paddingTop: '12px', paddingBottom: '12px',
   },
-  rowLeft: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem',
-  },
-  rowRight: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem',
-  },
-  epName: {
-    fontWeight: 600,
-    color: '#ffffff',
-    fontSize: '0.95rem',
-  },
+  rowLeft: { display: 'flex', alignItems: 'center', gap: '8px' },
+  rowRight: { display: 'flex', alignItems: 'center', gap: '8px' },
+  epName: { fontSize: '13px', fontWeight: 600, color: '#e6edf3' },
   metricPill: {
-    display: 'flex',
-    alignItems: 'baseline',
-    gap: '0.25rem',
-    padding: '0.25rem 0.6rem',
-    background: 'rgba(255,255,255,0.05)',
-    borderRadius: '6px',
-  },
-  metricVal: {
-    fontSize: '0.82rem',
-    fontWeight: 600,
-    color: '#c4b5d4',
-  },
-  metricLabel: {
-    fontSize: '0.65rem',
-    color: '#8a7a9e',
+    fontSize: '11px', color: '#8b949e', background: '#21262d',
+    border: '1px solid #30363d', borderRadius: '4px', padding: '2px 8px',
   },
   incident: {
-    padding: '0.85rem 1rem',
-    background: 'rgba(239, 68, 68, 0.1)',
-    border: '1px solid rgba(239, 68, 68, 0.15)',
-    borderRadius: '10px',
-    color: '#f87171',
-    fontSize: '0.9rem',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.6rem',
+    display: 'flex', alignItems: 'center', gap: '8px',
+    fontSize: '13px', color: '#f85149', padding: '6px 0',
   },
-  incidentDot: {
-    width: '8px',
-    height: '8px',
-    borderRadius: '50%',
-    background: '#ef4444',
-    boxShadow: '0 0 8px #ef4444',
+  incDot: {
+    width: 8, height: 8, borderRadius: '50%', background: '#f85149',
+    boxShadow: '0 0 6px #f85149', flexShrink: 0, display: 'inline-block',
     animation: 'glow-pulse 2s ease-in-out infinite',
-    flexShrink: 0,
   },
-  footer: {
-    color: '#8a7a9e',
-    fontSize: '0.78rem',
-    textAlign: 'center',
-    marginTop: '1rem',
-  },
+  footer: { fontSize: '11px', color: '#6e7681', textAlign: 'center', marginTop: '16px' },
   center: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #1a0a2e 0%, #2d1452 30%, #4a1a5e 60%, #6b2a6e 100%)',
+    display: 'flex', justifyContent: 'center', alignItems: 'center',
+    minHeight: '100vh', background: '#0d1117',
   },
-  errorCard: {
-    textAlign: 'center',
-    padding: '3rem',
+  spinner: {
+    width: '32px', height: '32px',
+    border: '3px solid #30363d', borderTopColor: '#238636',
+    borderRadius: '50%', display: 'inline-block', animation: 'spin 0.8s linear infinite',
   },
-  loader: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  spinnerLg: {
-    width: '40px',
-    height: '40px',
-    border: '3px solid rgba(232,68,109,0.15)',
-    borderTopColor: '#e8446d',
-    borderRadius: '50%',
-    display: 'inline-block',
-    animation: 'spin 0.8s linear infinite',
-  },
+  errorWrap: { textAlign: 'center' },
+  errorCode: { fontSize: '64px', fontWeight: 700, color: '#21262d', lineHeight: 1 },
+  errorTitle: { fontSize: '20px', fontWeight: 600, color: '#e6edf3', marginBottom: '8px', marginTop: '8px' },
+  errorSub: { fontSize: '13px', color: '#8b949e' },
 };
